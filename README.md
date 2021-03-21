@@ -1,6 +1,12 @@
 # Clamp Palette
 
-This will limit an image's color palette to a user-provided array of colors.
+![A drawing of bees](https://github.com/HauntedBees/clamp-palette/blob/master/examples/bees-in.png) becomes ![Sepia Bees](https://github.com/HauntedBees/clamp-palette/blob/master/examples/bees-out.png)
+
+![A photo of a Game Boy](https://github.com/HauntedBees/clamp-palette/blob/master/examples/gameboy-in.jpg) becomes ![Game Boy'd Game Boy](https://github.com/HauntedBees/clamp-palette/blob/master/examples/gameboy-out.jpg)
+
+![Spaghetti](https://github.com/HauntedBees/clamp-palette/blob/master/examples/spaghetti-in.jpg) becomes ![Sharp Spaghetti](https://github.com/HauntedBees/clamp-palette/blob/master/examples/spaghetti-out.jpg)
+
+Give any photo a limited, user-defined palette with just a few lines of code. Check `example.js` to see how the above images were generated.
 
 ## Install
 

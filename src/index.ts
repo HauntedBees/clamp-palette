@@ -1,5 +1,6 @@
-const Jimp2 = require("jimp");
-import Jimp from "jimp";
+const JimpObj = require("jimp");
+import JimpClass from "jimp";
+// gotta use separate imports for each because TypeScript won't play nice with Jimp otherwise.
 
 export interface ClampOptions {
     imagePath?:string;
@@ -18,11 +19,15 @@ const ClampPalette = function(options:ClampOptions) {
     if(!options.colors || !options.colors.length) { return options.errorcallback(new Error("Palette must be provided.")); }
 
     const realColors = options.colors.map(c => HexToRGB(c));
-    const callback = (err:(Error|null), image:Jimp) => {
+    const callback = (err:(Error|null), image:JimpClass) => {
+        if(err) {
+            options.errorcallback(err);
+            return;
+        }
         const w = image.getWidth(), h = image.getHeight();
         for(let x = 0; x < w; x++) {
             for(let y = 0; y < h; y++) {
-                const myColor = Jimp2.intToRGBA(image.getPixelColor(x, y));
+                const myColor = JimpObj.intToRGBA(image.getPixelColor(x, y));
                 if(myColor.a === 0) { continue; }
                 let lowestDistance = 99999, lowestIdx = -1;
                 for(let i = 0; i < realColors.length; i++) {
@@ -39,7 +44,7 @@ const ClampPalette = function(options:ClampOptions) {
                 }
                 const newColor = realColors[lowestIdx];
                 if(newColor === null) { return options.errorcallback(new Error("Invalid palette. All values must be hexadecimal colors.")); }
-                image.setPixelColor(Jimp2.rgbaToInt(newColor.r, newColor.g, newColor.b, myColor.a), x, y);
+                image.setPixelColor(JimpObj.rgbaToInt(newColor.r, newColor.g, newColor.b, myColor.a), x, y);
             }
         }
         image.getBuffer(options.mimeType || "image/png", (err:(Error|null), image:Buffer) => {
@@ -48,9 +53,9 @@ const ClampPalette = function(options:ClampOptions) {
         });
     };
     if(options.imagePath) {
-        Jimp2.read(options.imagePath, callback);
+        JimpObj.read(options.imagePath, callback);
     } else if(options.imageBuffer) {
-        Jimp2.read(options.imageBuffer, callback);
+        JimpObj.read(options.imageBuffer, callback);
     } else {
         return options.errorcallback(new Error("No image provided."));
     }
