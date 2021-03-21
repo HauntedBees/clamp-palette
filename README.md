@@ -20,7 +20,7 @@ npm install clamp-palette
 const ClampPalette = require("clamp-palette").default;
 ClampPalette({
     imagePath: "path to image file",
-    imageBuffer: "optionall use a buffer instead",
+    imageBuffer: "optionally use a buffer instead",
     colors: ["an array of #RRGGBB colors"],
     mimetype: "the mime type of the output image; image/png by default, image/jpeg and image/bmp are also supported",
     callback: (buffer) => console.log("a callback where you can do whatever you want with the resultant buffer"),
