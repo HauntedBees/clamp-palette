@@ -1,6 +1,6 @@
 {
   "name": "clamp-palette",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A tool to clamp an image's palette to a user-provided array of colors.",
   "homepage": "https://github.com/HauntedBees/clamp-palette",
   "main": "dist/index.js",

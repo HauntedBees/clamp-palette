@@ -38,7 +38,7 @@ const ClampPalette = function(options:ClampOptions) {
                 }
                 const newColor = realColors[lowestIdx];
                 if(newColor === null) { return options.errorcallback(new Error("Invalid palette. All values must be hexadecimal colors.")); }
-                const newColorNum = Jimp2.rgbaToInt(newColor.r, newColor.g, newColor.b, 255);
+                const newColorNum = Jimp2.rgbaToInt(newColor.r, newColor.g, newColor.b, myColor.a);
                 image.setPixelColor(newColorNum, x, y);
             }
         }
