@@ -23,6 +23,7 @@ const ClampPalette = function(options:ClampOptions) {
         for(let x = 0; x < w; x++) {
             for(let y = 0; y < h; y++) {
                 const myColor = Jimp2.intToRGBA(image.getPixelColor(x, y));
+                if(myColor.a === 0) { continue; }
                 let lowestDistance = 99999, lowestIdx = -1;
                 for(let i = 0; i < realColors.length; i++) {
                     const testColor = realColors[i];
@@ -38,8 +39,7 @@ const ClampPalette = function(options:ClampOptions) {
                 }
                 const newColor = realColors[lowestIdx];
                 if(newColor === null) { return options.errorcallback(new Error("Invalid palette. All values must be hexadecimal colors.")); }
-                const newColorNum = Jimp2.rgbaToInt(newColor.r, newColor.g, newColor.b, myColor.a);
-                image.setPixelColor(newColorNum, x, y);
+                image.setPixelColor(Jimp2.rgbaToInt(newColor.r, newColor.g, newColor.b, myColor.a), x, y);
             }
         }
         image.getBuffer(options.mimeType || "image/png", (err:(Error|null), image:Buffer) => {
